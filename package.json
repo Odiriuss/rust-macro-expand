@@ -1,0 +1,170 @@
+{
+  "name": "rust-macro-expand",
+  "displayName": "Rust Macro Expand",
+  "description": "Expand rust macros",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.62.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "icon": "images/logo_crab.png",
+  "activationEvents": [
+    "onLanguage:rust",
+    "onCommand:rust-macro-expand.expand",
+    "onCommand:rust-macro-expand.expand-crate"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "Rust Macro Expand",
+      "properties": {
+        "rustMacroExpand.displayWarnings": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "Specifies whether or not to display warnings in the generated output. Warnings will be displayed as a multiline comment at the top of the generated output."
+        },
+        "rustMacroExpand.notifyWarnings": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "Specifies whether or not to display warnings as an action in a notification. After expand has been completed, if there were any warnings you will get a notification with a button which upon click will display the warnings in a spearate window."
+        },
+        "rustMacroExpand.displayCargoCommand": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "Specifies whether or not to display in the generated output the command sent to cargo expand."
+        },
+        "rustMacroExpand.displayCargoCommandPath": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "Specifies whether or not to display in the generated output the folder in which the cargo expand command was executed."
+        },
+        "rustMacroExpand.displayTimestamp": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Specifies whether or not to display the timestamp in the generated output."
+        },
+        "rustMacroExpand.expandOnSave": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Specifies whether or not to refresh expanded files on save."
+        }
+      }
+    },
+    "keybindings": [
+      {
+        "command": "rust-macro-expand.expand",
+        "key": "ctrl+f1",
+        "mac": "cmd+f1",
+        "when": "editorLangId == rust && resourceScheme != rustexpand"
+      }
+    ],
+    "commands": [
+      {
+        "command": "rust-macro-expand.expand",
+        "category": "Rust Expand Macro",
+        "title": "Expand Macros",
+        "shortTitle": "rustex",
+        "icon": {
+          "light": "images/expand_black.png",
+          "dark": "images/expand_white.png"
+        }
+      },
+      {
+        "command": "rust-macro-expand.expand-crate",
+        "category": "Rust Expand Macro",
+        "title": "Expand Crate Macros",
+        "shortTitle": "rustexc",
+        "icon": {
+          "light": "images/expand_crate_black.png",
+          "dark": "images/expand_crate_white.png"
+        }
+      },
+      {
+        "command": "rust-macro-expand.expand-reload",
+        "category": "Rust Expand Macro",
+        "title": "Reload Expanded Macros",
+        "shortTitle": "rustexr",
+        "icon": {
+          "light": "images/expand_reload_black.png",
+          "dark": "images/expand_reload_white.png"
+        }
+      },
+      {
+        "command": "rust-macro-expand.expand-command",
+        "category": "Rust Expand Macro",
+        "title": "Expand Custom Command",
+        "shortTitle": "rustexcc"
+      },
+      {
+        "command": "rust-macro-expand.expand-path",
+        "category": "Rust Expand Macro",
+        "title": "Expand Custom Path",
+        "shortTitle": "rustexp"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "rust-macro-expand.expand",
+          "group": "navigation",
+          "when": "editorLangId == rust && resourceScheme != rustexpand"
+        },
+        {
+          "command": "rust-macro-expand.expand-crate",
+          "group": "navigation",
+          "when": "editorLangId == rust && resourceScheme != rustexpand"
+        },
+        {
+          "command": "rust-macro-expand.expand-reload",
+          "group": "navigation",
+          "when": "resourceScheme == rustexpand"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "rust-macro-expand.expand-reload",
+          "when": "resourceScheme == rustexpand"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "rust-macro-expand.expand",
+          "when": "editorLangId == rust && resourceScheme != rustexpand"
+        },
+        {
+          "command": "rust-macro-expand.expand-crate",
+          "when": "editorLangId == rust && resourceScheme != rustexpand"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.62.0",
+    "@types/glob": "^7.1.4",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "14.x",
+    "@typescript-eslint/eslint-plugin": "^5.1.0",
+    "@typescript-eslint/parser": "^5.1.0",
+    "eslint": "^8.1.0",
+    "glob": "^7.1.7",
+    "mocha": "^9.1.3",
+    "typescript": "^4.4.4",
+    "ts-loader": "^9.2.5",
+    "webpack": "^5.52.1",
+    "webpack-cli": "^4.8.0",
+    "@vscode/test-electron": "^1.6.2"
+  }
+}
