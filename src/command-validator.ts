@@ -63,7 +63,7 @@ export async function validateDocumentUri(
 ): Promise<ValidateDocumentUriResult | null> {
   let dir = path.dirname(options.document.fileName);
   const fileName = options.document.fileName.replace(dir, "").replace(path.sep, "");
-  
+
   let uriPath = `🦀 ${fileName}`;
   let description = "[Expanded]";
 
@@ -240,11 +240,11 @@ export async function validateCustomCommand(
  */
 export async function validateModPath(command: ValidateCommandResult): Promise<string> {
   /*
-  Example: 
+  Example:
   cargoPath:'f:\\Private\\Rust\\expand_macros\\'
   fileName:'f:\\Private\\Rust\\expand_macros\\src\\inner\\inner_expanded.rs'
 
-  Example: 
+  Example:
   cargoPath:'f:\\Private\\Rust\\expand_macros\\'
   fileName:'f:\\Private\\Rust\\expand_macros\\src\\inner\\mod.rs'
   */
@@ -253,7 +253,7 @@ export async function validateModPath(command: ValidateCommandResult): Promise<s
     .replace(`src${path.sep}`, "")
     .replace(`${path.sep}mod.rs`, "")
     .replace(".rs", "")
-    .replace("\\", "::");
+    .replace(path.sep, "::");
 
   return modPath.trim();
 }
