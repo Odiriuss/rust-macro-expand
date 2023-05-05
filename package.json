@@ -2,6 +2,7 @@
   "name": "rust-macro-expand",
   "displayName": "Rust Macro Expand",
   "description": "Expand rust macros",
+  "repository": "https://github.com/Odiriuss/rust-macro-expand",
   "version": "1.0.0",
   "engines": {
     "vscode": "^1.62.0"
